@@ -31,7 +31,7 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-        it('has a URL defined and is not empty', function() {
+        it('have a URL defined and are not empty', function() {
             for (var i = 0; i < allFeeds.length; i++) {
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url.length).not.toBe(0);
@@ -42,7 +42,7 @@ $(function() {
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-        it('has a name defined and is not empty', function() {
+        it('have a name defined and are not empty', function() {
             for (var i = 0; i < allFeeds.length; i++) {
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name.length).not.toBe(0);
@@ -59,7 +59,7 @@ $(function() {
          * hiding/showing of the menu element.
          */
          it('is hidden by default', function() {
-            expect ($(document.body).hasClass('menu-hidden')).toBe(true);
+            expect ($('body').hasClass('menu-hidden')).toBe(true);
          });
 
 
@@ -72,9 +72,9 @@ $(function() {
           it('changes visibility when icon is clicked', function() {
             var menuIcon = $('.menu-icon-link');
             menuIcon.trigger('click');
-            expect ($(document.body).hasClass('menu-hidden')).toBe(false);
+            expect ($('body').hasClass('menu-hidden')).toBe(false);
             menuIcon.trigger('click');
-            expect ($(document.body).hasClass('menu-hidden')).toBe(true);
+            expect ($('body').hasClass('menu-hidden')).toBe(true);
           });
 
     });
@@ -93,7 +93,7 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
         it('appear when loadFeed is called', function(done) {
-            expect($('.feed').children('.entry').length).toBeGreaterThan(0);
+            expect($('.feed article').hasClass('entry')).toBe(true);
             done();
         });
     });
@@ -101,17 +101,18 @@ $(function() {
 
     /* TODO: Write a new test suite named "New Feed Selection"*/
     describe('New feed selection', function() {
+        var content, newContent;
 
         beforeEach(function(done) {
             loadFeed(0, function() {
-                var content = $('.feed-list').html;
+                content = $('.feed').html();
                 done();
             });
         });
 
         beforeEach(function(done) {
-            loadFeed(1, function() {
-                var newContent = $('.feed-list').html;
+            loadFeed(2, function() {  // using 2 because css-tricks feed not responding at time of testing
+                newContent = $('.feed').html();
                 done();
             });
         });
@@ -121,9 +122,9 @@ $(function() {
          */
 
         it('makes a new feed load', function(done) {
-            expect(newContent).not.toEqual(content);
+            expect(content).not.toEqual(newContent);
             done();
-        })
+        });
 
 
     });
